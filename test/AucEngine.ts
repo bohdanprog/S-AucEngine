@@ -162,8 +162,12 @@ describe("AucEngine", () => {
       expect(
         ctx.token.connect(ctx.buyer).buy(0, { value: txData._startingPrice })
       ).revertedWith("ended!");
+      expect(ctx.token.connect(ctx.buyer).getPriceFor(0)).revertedWith(
+        "stopped"
+      );
     });
-    it.only("Shoud be refund payment", async () => {
+
+    it("Shoud be refund payment", async () => {
       await ctx.token
         .connect(ctx.seller)
         .createAuction(
